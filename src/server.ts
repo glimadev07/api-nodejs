@@ -1,13 +1,11 @@
-import express from 'express'
+import createServer from "./config/create-server";
 
-console.log('Starting application')
-
-const app = express()
+const port = 3000;
+const server = createServer();
 
 // TODO - inicializar camada de apresentação que contém a configuração dos endpoints
 // initPresentationLayer(app)
 
-const port = 3000
-const server = app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
-})
+server.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
