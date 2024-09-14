@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 
-const authorize = (req: Request, res: Response, next: NextFunction): void => {
+export default function authorize(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void {
   const authHeader = req.headers["authorization"];
 
   if (!authHeader) {
@@ -16,6 +20,4 @@ const authorize = (req: Request, res: Response, next: NextFunction): void => {
   }
 
   next();
-};
-
-export default authorize;
+}
