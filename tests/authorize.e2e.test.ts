@@ -1,13 +1,13 @@
-import authorize from "../src/middleware/authorize";
-import * as request from "supertest";
-import cretateServer from "../src/config/create-server";
+import { authorize } from "../src/presentation/middleware/authorize";
+import request from "supertest";
+import { createServer } from "../src/config/create-server";
 import { Express } from "express";
 
 describe("Authorization Middleware", () => {
   let server: Express;
 
   beforeAll(() => {
-    server = cretateServer();
+    server = createServer();
     server.get("/protected", authorize, (req, res) => {
       res.json({ message: "You have accessed a protected endpoint!" });
     });

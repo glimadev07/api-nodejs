@@ -1,11 +1,14 @@
-import createServer from "./config/create-server";
+import { createServer } from "./config/create-server";
+import { initPaymentRoutes } from "./presentation/routes/paymentRoutes";
+import dotenv from "dotenv";
+import envs from "./config/envs";
 
-const port = 3000;
+dotenv.config();
+
 const server = createServer();
 
-// TODO - inicializar camada de apresentação que contém a configuração dos endpoints
-// initPresentationLayer(app)
+initPaymentRoutes(server);
 
-server.listen(port, () => {
-  console.log(`App listening on port ${port}`);
+server.listen(envs.SERVER_PORT, () => {
+  console.log(`App listening on port ${envs.SERVER_PORT}`);
 });

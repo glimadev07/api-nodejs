@@ -1,6 +1,7 @@
 # Api de Pagamento Pix
 
 Nessa api de pagamento pix, inicialmente teremos apenas dois endpoints privados:
+
 - consultar status de uma transação: Retornará todos os dados da transação
 - efetuar uma transação a partir de uma chave pix:
   - a transação deve ser bloqueada caso o valor seja maior que R$1.000,00 reais e horário seja entre 20h e 5h59
@@ -9,20 +10,21 @@ Nessa api de pagamento pix, inicialmente teremos apenas dois endpoints privados:
 
 ## O que deve ser feito:
 
-- [] estruturar as diferentes camadas da aplicação como bem entender, garantindo separação de responsabilidades e desacoplamento. 
-- [] middleware de autorização
-- [] mock de persistência dos dados
-- [] consulta à api de terceiros
-- [] implementação dos endpoints
+- [x] estruturar as diferentes camadas da aplicação como bem entender, garantindo separação de responsabilidades e desacoplamento.
+- [x] middleware de autorização
+- [x] mock de persistência dos dados
+- [x] consulta à api de terceiros
+- [x] implementação dos endpoints
 
->[!IMPORTANT]
->Os trechos de código abaixo tem como objetivo servirem de base para a implementação do candidato. Eles podem ser copiados e colados no arquivo apropriado para que o candidato possa finalizar a implementação.
+> [!IMPORTANT]
+> Os trechos de código abaixo tem como objetivo servirem de base para a implementação do candidato. Eles podem ser copiados e colados no arquivo apropriado para que o candidato possa finalizar a implementação.
 
 ## Como deve ser entregue:
 
 O candidato criará uma nova branch dentro do repositório e no final fará um push da branch para abrir um pull request.
 
 ### Middleware de autorização:
+
 Middleware deve ler o token do cabeçalho de autorização e verificar se é válido. Se não for válido, deve lançar um erro 403.
 
 Para simplificar, podemos considerar como token válido a seguinte string: 'VALID_AUTH_TOKEN'
@@ -40,35 +42,37 @@ export default authorize;
 ```
 
 ### Endpoints:
+
 Finalizar os dois endpoints que devem ser disponibilizados na api.
 
 ```javascript
 const initPresentationLayer = (app) => {
   /* TODO - finalizar endpoint de consulta a uma transação pelo id
-  *
-  *  path param: id da transação
-  *  retorno: { id: string; amount: number: number; pixKey: string; account: string; bank: string }
-  *
-  */
-  app.get('/payment/:id', authorize, async (req, res) => {
+   *
+   *  path param: id da transação
+   *  retorno: { id: string; amount: number: number; pixKey: string; account: string; bank: string }
+   *
+   */
+  app.get("/payment/:id", authorize, async (req, res) => {
     // apenas buscar a transaction e retornar
-    res.send(results)
-  })
+    res.send(results);
+  });
 
   /* TODO - finalizar endpoint para solicitação de um pagamento pix
-  * 
-  *  payload: { amount: number; pixKey: string }
-  *  retorno: { id: string; amount: number: number; pixKey: string; account: string; bank: string }
-  *  
-  */
-  app.post('/payment', authorize, async (req, res) => {
+   *
+   *  payload: { amount: number; pixKey: string }
+   *  retorno: { id: string; amount: number: number; pixKey: string; account: string; bank: string }
+   *
+   */
+  app.post("/payment", authorize, async (req, res) => {
     // buscar os dados de conta da chave pix via api externa e persistir o pagamento
-    res.send(results)
-  })  
-}
+    res.send(results);
+  });
+};
 ```
 
 ### Chamada a uma api externa para consulta de dados de conta:
+
 - method: GET
 - url: `http://localhost:3001/pixKey/:pixKey`
 - retorno: `{ account: string, bank: string }`
@@ -94,11 +98,12 @@ getTransaction(id): Promise<Transaction> {
 ```
 
 ### Tipagem:
+
 ```typescript
 export type Payment = {
   amount: number;
   pixKey: string;
   account: string;
   bank: string;
-}
+};
 ```

@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+import envs from "../../config/envs";
 
-export default function authorize(
+export function authorize(
   req: Request,
   res: Response,
   next: NextFunction,
@@ -14,7 +15,7 @@ export default function authorize(
 
   const token = authHeader.split(" ")[1]; // Assuming format 'Bearer TOKEN'
 
-  if (token !== "VALID_AUTH_TOKEN") {
+  if (token !== envs.JWT_SECRET) {
     res.status(403).json({ error: "Invalid token" });
     return;
   }
